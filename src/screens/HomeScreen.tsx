@@ -11,11 +11,21 @@ import randomUuid from 'uuid/v4'
 
 import Button from '../components/Button'
 
-export default class HomeScreen extends Component {
-  state = {
-    items: [],
-    inputValue: '',
-  }
+interface Item {
+  id: string
+  name: string
+  completed: boolean
+}
+
+interface State {
+  items: Item[]
+  inputValue: string
+}
+
+export default class HomeScreen extends Component<{}, State> {
+  private inputNewItem: React.RefObject<TextInput> = React.createRef()
+
+  state: State = { items: [], inputValue: '' }
 
   handleSubmit = () => {
     this.setState(prevState => ({
@@ -30,19 +40,22 @@ export default class HomeScreen extends Component {
       ],
     }))
 
-    this.inputNewItem.clear()
+    this.inputNewItem.current.clear()
 
     setTimeout(() => {
-      this.inputNewItem.focus()
+      this.inputNewItem.current.focus()
     }, 100)
   }
 
-  handleItemPress = selectedItem => {
+  handleItemPress = (selectedItem: Item) => {
     this.setState(() => ({
       items: this.state.items.map(
         item =>
           selectedItem.name === item.name
-            ? { ...item, completed: !item.completed }
+            ? {
+                ...item,
+                completed: !item.completed,
+              }
             : item
       ),
     }))
@@ -53,7 +66,12 @@ export default class HomeScreen extends Component {
     return (
       <SafeAreaView style={{ flex: 1, paddingLeft: 10, paddingRight: 10 }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 20, textAlign: 'center' }}>
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: 'center',
+            }}
+          >
             New CheckLyst
           </Text>
           <View>
@@ -73,7 +91,7 @@ export default class HomeScreen extends Component {
               placeholder="e.g. Take the trash out"
               onChangeText={inputValue => this.setState({ inputValue })}
               onSubmitEditing={this.handleSubmit}
-              ref={val => (this.inputNewItem = val)}
+              ref={this.inputNewItem}
               value={this.state.inputValue}
             />
             <View style={{ flexDirection: 'row' }}>
