@@ -11,23 +11,22 @@ import randomUuid from 'uuid/v4'
 
 import Button from '../components/Button'
 
-interface Item {
+interface InterfaceItem {
   id: string
   name: string
   completed: boolean
 }
 
-interface State {
-  items: Item[]
+interface InterfaceState {
+  items: InterfaceItem[]
   inputValue: string
 }
 
-export default class HomeScreen extends Component<{}, State> {
+export default class HomeScreen extends Component<{}, InterfaceState> {
+  public state: InterfaceState = { items: [], inputValue: '' }
   private inputNewItem: React.RefObject<TextInput> = React.createRef()
 
-  state: State = { items: [], inputValue: '' }
-
-  handleSubmit = () => {
+  private handleSubmit = () => {
     this.setState(prevState => ({
       inputValue: '',
       items: [
@@ -47,7 +46,7 @@ export default class HomeScreen extends Component<{}, State> {
     }, 100)
   }
 
-  handleItemPress = (selectedItem: Item) => {
+  private handleItemPress = (selectedItem: InterfaceItem) => {
     this.setState(() => ({
       items: this.state.items.map(
         item =>
@@ -61,7 +60,7 @@ export default class HomeScreen extends Component<{}, State> {
     }))
   }
 
-  render() {
+  public render() {
     const { items } = this.state
     return (
       <SafeAreaView style={{ flex: 1, paddingLeft: 10, paddingRight: 10 }}>

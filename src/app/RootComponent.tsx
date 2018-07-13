@@ -15,7 +15,7 @@ const TabScreens = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state
-        let icon = {
+        const icon = {
           name: '',
           size: 0,
         }
@@ -39,7 +39,7 @@ const TabScreens = createBottomTabNavigator(
 )
 
 export default class RootComponent extends Component {
-  render() {
+  public render() {
     return <TabScreens />
   }
 }

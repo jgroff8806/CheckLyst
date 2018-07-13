@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "react": "16.4.1",
@@ -27,6 +28,9 @@
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.4.1",
     "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "tslint-config-standard": "^7.1.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.9.2"
   },
   "jest": {

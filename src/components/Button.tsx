@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-interface ButtonInterface {
+interface InterfaceButton {
   children: string
   disabled?: boolean
   isCancel?: boolean
@@ -13,7 +13,7 @@ export default function Button({
   disabled = false,
   isCancel = false,
   onPress,
-}: ButtonInterface) {
+}: InterfaceButton) {
   return (
     <TouchableOpacity
       disabled={disabled}
