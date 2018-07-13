@@ -1,13 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+
+interface ButtonInterface {
+  children: string
+  disabled?: boolean
+  isCancel?: boolean
+  onPress(): void
+}
 
 export default function Button({
   children,
   disabled = false,
   isCancel = false,
   onPress,
-}) {
+}: ButtonInterface) {
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -17,7 +23,7 @@ export default function Button({
       ]}
       onPress={onPress}
     >
-      <Text style={styles.text}>{children}</Text>
+      <Text style={styles.text}>{children.toUpperCase()}</Text>
     </TouchableOpacity>
   )
 }
@@ -38,13 +44,5 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     textAlign: 'center',
-    textTransform: 'uppercase',
   },
 })
-
-Button.propTypes = {
-  children: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  isCancel: PropTypes.bool,
-  onPress: PropTypes.func.isRequired,
-}
