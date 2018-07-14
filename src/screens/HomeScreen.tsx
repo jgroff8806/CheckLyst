@@ -3,13 +3,16 @@ import {
   StyleSheet,
   TextInput,
   Text,
+  TextStyle,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import randomUuid from 'uuid/v4'
 
 import Button from '../components/Button'
+import ItemsList from '../components/ItemsList'
 
 interface InterfaceItem {
   id: string
@@ -20,6 +23,13 @@ interface InterfaceItem {
 interface InterfaceState {
   items: InterfaceItem[]
   inputValue: string
+}
+
+interface InterfaceStyles {
+  home: ViewStyle
+  homeHeader: TextStyle
+  inputNewItem: ViewStyle
+  itemsWrapper: ViewStyle
 }
 
 export default class HomeScreen extends Component<{}, InterfaceState> {
@@ -60,40 +70,37 @@ export default class HomeScreen extends Component<{}, InterfaceState> {
     }))
   }
 
+  private handleCancelPress = () => {
+    this.setState(() => ({
+      items: [],
+      inputValue: '',
+    }))
+  }
+
+  private handleChange = (inputValue: string) => {
+    this.setState(() => ({ inputValue }))
+  }
+
   public render() {
     const { items } = this.state
     return (
-      <SafeAreaView style={{ flex: 1, paddingLeft: 10, paddingRight: 10 }}>
+      <SafeAreaView style={styles.home}>
         <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              fontSize: 20,
-              textAlign: 'center',
-            }}
-          >
-            New CheckLyst
-          </Text>
+          <Text style={styles.homeHeader}>New CheckLyst</Text>
           <View>
             <TextInput
-              style={{
-                height: 40,
-                borderColor: 'dodgerblue',
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-              }}
+              style={styles.inputNewItem}
               autoFocus
               autoCapitalize="none"
               enablesReturnKeyAutomatically
               maxLength={60}
               placeholder="e.g. Take the trash out"
-              onChangeText={inputValue => this.setState({ inputValue })}
+              onChangeText={inputValue => this.handleChange(inputValue)}
               onSubmitEditing={this.handleSubmit}
               ref={this.inputNewItem}
               value={this.state.inputValue}
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View>
               <Button
                 disabled={!this.state.inputValue.length}
                 onPress={this.handleSubmit}
@@ -103,53 +110,45 @@ export default class HomeScreen extends Component<{}, InterfaceState> {
               <Button
                 disabled={!items.length}
                 isCancel
-                onPress={() => {
-                  this.setState(() => ({
-                    items: [],
-                    inputValue: '',
-                  }))
-                }}
+                onPress={this.handleCancelPress}
               >
                 Clear All
               </Button>
             </View>
           </View>
         </View>
-        <View
-          style={{
-            flex: 1,
-            borderTopWidth: 1,
-            borderTopColor: 'dodgerblue',
-            padding: 20,
-          }}
-        >
-          {items && items.length
-            ? items.map(item => (
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => this.handleItemPress(item)}
-                >
-                  <Text
-                    style={{
-                      borderWidth: 2,
-                      borderColor: 'dodgerblue',
-                      borderRadius: 5,
-                      color: 'dodgerblue',
-                      marginTop: 5,
-                      marginBottom: 5,
-                      padding: 10,
-                      textDecorationLine: item.completed
-                        ? 'line-through'
-                        : 'none',
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              ))
-            : null}
+        <View style={styles.itemsWrapper}>
+          <ItemsList handlePress={this.handleItemPress} items={items} />
         </View>
       </SafeAreaView>
     )
   }
+}
+
+const styles: InterfaceStyles = {
+  home: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  homeHeader: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  inputNewItem: {
+    height: 40,
+    borderColor: 'dodgerblue',
+    borderWidth: 2,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  itemsWrapper: {
+    flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: 'dodgerblue',
+    padding: 20,
+  },
 }

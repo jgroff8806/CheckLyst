@@ -30,15 +30,10 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    flex: 1,
-    marginLeft: 5,
-    marginRight: 5,
     marginTop: 10,
     marginBottom: 10,
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
     color: 'dodgerblue',
   },
   text: {
