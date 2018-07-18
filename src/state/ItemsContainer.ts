@@ -1,31 +1,20 @@
 import { Container } from 'unstated'
-
-interface InterfaceItem {
-  id: string
-  name: string
-  completed: boolean
-}
-
-interface InterfaceCheckLyst {
-  id: string
-  name: string
-  items: InterfaceItem[]
-}
+import { IItem, ICheckLyst } from '../types/items'
 
 interface InterfaceState {
-  savedCheckLysts: InterfaceCheckLyst[]
+  savedCheckLysts: ICheckLyst[]
 }
 
 export default class ItemsContainer extends Container<InterfaceState> {
   public state: InterfaceState = { savedCheckLysts: [] }
 
-  public create = (newCheckLyst: InterfaceCheckLyst) => {
+  public create = (newCheckLyst: ICheckLyst) => {
     this.setState(prevState => ({
       savedCheckLysts: [...prevState.savedCheckLysts, newCheckLyst],
     }))
   }
 
-  public delete = (checkLyst: InterfaceCheckLyst) => {
+  public delete = (checkLyst: ICheckLyst) => {
     const checkLystIndex: number = this.state.savedCheckLysts.indexOf(checkLyst)
 
     this.setState(prevState => ({
@@ -36,7 +25,7 @@ export default class ItemsContainer extends Container<InterfaceState> {
     }))
   }
 
-  public edit = (checkLyst: InterfaceCheckLyst) => {
+  public edit = (checkLyst: ICheckLyst) => {
     const checkLystIndex: number = this.state.savedCheckLysts.indexOf(checkLyst)
 
     this.setState(prevState => ({
@@ -49,9 +38,5 @@ export default class ItemsContainer extends Container<InterfaceState> {
         }
       }),
     }))
-  }
-
-  public getNewLyst = () => {
-    return this.state.savedCheckLysts[this.state.savedCheckLysts.length - 1]
   }
 }

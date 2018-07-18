@@ -17,30 +17,7 @@ import Button from '../components/Button'
 import ItemsList from '../components/ItemsList'
 import ItemsContainer from '../state/ItemsContainer'
 import HomeView from '../views/HomeView'
-
-interface InterfaceItem {
-  id: string
-  name: string
-  completed: boolean
-}
-
-interface InterfaceCheckLyst {
-  id: string
-  name: string
-  items: InterfaceItem[]
-}
-
-interface InterfaceSavedCheckLysts {
-  savedCheckLysts: InterfaceCheckLyst[]
-}
-
-interface InterfaceItems {
-  state: { savedCheckLyst: InterfaceCheckLyst[] }
-  create(checkLyst: InterfaceCheckLyst): void
-  delete(checkLyst: InterfaceCheckLyst): void
-  edit(checkLyst: InterfaceCheckLyst): void
-  getNewLyst(checkLyst: InterfaceCheckLyst): InterfaceCheckLyst
-}
+import { IContainerItems } from '../types/items'
 
 interface InterfaceStyles {
   home: ViewStyle
@@ -53,14 +30,8 @@ export default class HomeScreen extends Component<{}> {
   public render() {
     return (
       <Subscribe to={[ItemsContainer]}>
-        {(items: Container<InterfaceItems>) => (
-          <HomeView
-            create={items.create}
-            delete={items.delete}
-            edit={items.edit}
-            items={items.state.savedCheckLyst}
-            getNewLyst={items.getNewLyst}
-          />
+        {(items: Container<IContainerItems>) => (
+          <HomeView create={items.create} delete={items.delete} edit={items.edit} />
         )}
       </Subscribe>
     )
