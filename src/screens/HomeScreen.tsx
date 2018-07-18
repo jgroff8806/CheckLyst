@@ -7,12 +7,16 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
+  ImageEditor,
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import randomUuid from 'uuid/v4'
+import { Container, Subscribe } from 'unstated'
 
 import Button from '../components/Button'
 import ItemsList from '../components/ItemsList'
+import ItemsContainer from '../state/ItemsContainer'
+import HomeView from '../views/HomeView'
 
 interface InterfaceItem {
   id: string
@@ -20,9 +24,22 @@ interface InterfaceItem {
   completed: boolean
 }
 
-interface InterfaceState {
+interface InterfaceCheckLyst {
+  id: string
+  name: string
   items: InterfaceItem[]
-  inputValue: string
+}
+
+interface InterfaceSavedCheckLysts {
+  savedCheckLysts: InterfaceCheckLyst[]
+}
+
+interface InterfaceItems {
+  state: { savedCheckLyst: InterfaceCheckLyst[] }
+  create(checkLyst: InterfaceCheckLyst): void
+  delete(checkLyst: InterfaceCheckLyst): void
+  edit(checkLyst: InterfaceCheckLyst): void
+  getNewLyst(checkLyst: InterfaceCheckLyst): InterfaceCheckLyst
 }
 
 interface InterfaceStyles {
@@ -32,95 +49,20 @@ interface InterfaceStyles {
   itemsWrapper: ViewStyle
 }
 
-export default class HomeScreen extends Component<{}, InterfaceState> {
-  public state: InterfaceState = { items: [], inputValue: '' }
-  private inputNewItem: React.RefObject<TextInput> = React.createRef()
-
-  private handleSubmit = () => {
-    this.setState(prevState => ({
-      inputValue: '',
-      items: [
-        ...prevState.items,
-        {
-          id: randomUuid(),
-          name: prevState.inputValue,
-          completed: false,
-        },
-      ],
-    }))
-
-    this.inputNewItem.current.clear()
-
-    setTimeout(() => {
-      this.inputNewItem.current.focus()
-    }, 100)
-  }
-
-  private handleItemPress = (selectedItem: InterfaceItem) => {
-    this.setState(() => ({
-      items: this.state.items.map(
-        item =>
-          selectedItem.name === item.name
-            ? {
-                ...item,
-                completed: !item.completed,
-              }
-            : item
-      ),
-    }))
-  }
-
-  private handleCancelPress = () => {
-    this.setState(() => ({
-      items: [],
-      inputValue: '',
-    }))
-  }
-
-  private handleChange = (inputValue: string) => {
-    this.setState(() => ({ inputValue }))
-  }
-
+export default class HomeScreen extends Component<{}> {
   public render() {
-    const { items } = this.state
     return (
-      <SafeAreaView style={styles.home}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.homeHeader}>New CheckLyst</Text>
-          <View>
-            <TextInput
-              style={styles.inputNewItem}
-              autoFocus
-              autoCapitalize="none"
-              enablesReturnKeyAutomatically
-              maxLength={60}
-              placeholder="e.g. Take the trash out"
-              onChangeText={inputValue => this.handleChange(inputValue)}
-              onSubmitEditing={this.handleSubmit}
-              ref={this.inputNewItem}
-              value={this.state.inputValue}
-            />
-            <View>
-              <Button
-                disabled={!this.state.inputValue.length}
-                onPress={this.handleSubmit}
-              >
-                Add
-              </Button>
-              <Button
-                disabled={!items.length}
-                isCancel
-                onPress={this.handleCancelPress}
-              >
-                Clear All
-              </Button>
-            </View>
-          </View>
-        </View>
-        <View style={styles.itemsWrapper}>
-          <ItemsList handlePress={this.handleItemPress} items={items} />
-        </View>
-      </SafeAreaView>
+      <Subscribe to={[ItemsContainer]}>
+        {(items: Container<InterfaceItems>) => (
+          <HomeView
+            create={items.create}
+            delete={items.delete}
+            edit={items.edit}
+            items={items.state.savedCheckLyst}
+            getNewLyst={items.getNewLyst}
+          />
+        )}
+      </Subscribe>
     )
   }
 }
