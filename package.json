@@ -27,6 +27,7 @@
     "prettier": "^1.13.7",
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.4.1",
+    "reactotron-react-native": "^2.0.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
     "tslint-config-standard": "^7.1.0",
