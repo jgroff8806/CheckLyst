@@ -7,13 +7,12 @@ interface InterfaceItem {
   completed: boolean
 }
 
-export default function ItemsList({
-  handlePress,
-  items,
-}: {
+interface InterfaceProps {
   handlePress(item: InterfaceItem): void
   items: InterfaceItem[]
-}) {
+}
+
+export default function ItemsList({ handlePress, items }: InterfaceProps) {
   return items && items.length ? (
     <FlatList
       data={items}

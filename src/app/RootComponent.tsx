@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { Provider } from 'unstated'
 
 import HomeScreen from '../screens/HomeScreen'
 import CheckLystsScreen from '../screens/CheckLystsScreen'
+import ItemsContainer from '../state/ItemsContainer'
 
 const TabScreens = createBottomTabNavigator(
   {
@@ -38,9 +40,15 @@ const TabScreens = createBottomTabNavigator(
   }
 )
 
+const items = new ItemsContainer()
+
 export default class RootComponent extends Component {
   public render() {
-    return <TabScreens />
+    return (
+      <Provider inject={[items]}>
+        <TabScreens />
+      </Provider>
+    )
   }
 }
 
