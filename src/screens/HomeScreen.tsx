@@ -9,9 +9,7 @@ export default class HomeScreen extends Component<{}> {
   public render() {
     return (
       <Subscribe to={[ItemsContainer]}>
-        {(items: Container<IContainerItems>) => (
-          <HomeView create={items.create} delete={items.delete} edit={items.edit} />
-        )}
+        {(items: Container<IContainerItems>) => <HomeView create={items.create} />}
       </Subscribe>
     )
   }

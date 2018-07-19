@@ -1,26 +1,27 @@
+/**
+ * @todo Refactor to a render prop!
+ */
+
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 interface InterfaceButton {
   children: string
   disabled?: boolean
-  isCancel?: boolean
+  isSubmit?: boolean
   onPress(): void
 }
 
 export default function Button({
   children,
   disabled = false,
-  isCancel = false,
+  isSubmit = false,
   onPress,
 }: InterfaceButton) {
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[
-        styles.button,
-        { backgroundColor: isCancel ? 'tomato' : 'dodgerblue' },
-      ]}
+      style={[styles.button, { backgroundColor: isSubmit ? 'limegreen' : 'dodgerblue' }]}
       onPress={onPress}
     >
       <Text style={styles.text}>{children.toUpperCase()}</Text>

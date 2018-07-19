@@ -12,7 +12,7 @@ export interface ICheckLyst {
 
 export interface IContainerItems {
   state: { savedCheckLyst: ICheckLyst[] }
-  create(checkLyst: ICheckLyst): void
-  delete(checkLyst: ICheckLyst): void
-  edit(checkLyst: ICheckLyst): void
+  create(i: ICheckLyst): void
+  delete(i: ICheckLyst): void
+  edit(i: ICheckLyst): void
 }
