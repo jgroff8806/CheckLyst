@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Provider } from 'unstated'
@@ -51,12 +50,3 @@ export default class RootComponent extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-})

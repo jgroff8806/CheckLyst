@@ -82,9 +82,6 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
     }
 
     this.props.create(newCheckLyst)
-
-    // fix this later with a real promise from setState
-    alert('CheckLyst Saved')
   }
 
   private handleChange = (inputValue: string) => {
