@@ -95,7 +95,7 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
   public render() {
     return (
       <SafeAreaView style={styles.home}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 2 }}>
           <Text style={styles.homeHeader}>
             {this.state.nameHidden ? 'Add Item' : 'New CheckLyst'}
           </Text>
@@ -126,9 +126,6 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
               <Button disabled={!this.state.inputValue.length} onPress={this.handleItemSubmit}>
                 Add
               </Button>
-              <Button disabled={!this.state.newLyst} isSubmit onPress={this.handleSavePress}>
-                Save CheckLyst
-              </Button>
             </View>
           </View>
         </View>
@@ -140,6 +137,13 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
             handlePress={this.handleItemPress}
             items={this.state.listItems && this.state.listItems.length ? this.state.listItems : []}
           />
+        </View>
+        <View
+          style={{ flex: 1, justifyContent: 'flex-end', opacity: this.state.nameHidden ? 1 : 0 }}
+        >
+          <Button disabled={!this.state.newLyst} isSubmit onPress={this.handleSavePress}>
+            Save CheckLyst
+          </Button>
         </View>
       </SafeAreaView>
     )
@@ -167,9 +171,11 @@ const styles: InterfaceStyles = {
     paddingRight: 10,
   },
   itemsWrapper: {
-    flex: 1,
+    flex: 3,
     borderTopWidth: 1,
     borderTopColor: 'dodgerblue',
+    borderBottomWidth: 1,
+    borderBottomColor: 'dodgerblue',
     padding: 20,
   },
 }
