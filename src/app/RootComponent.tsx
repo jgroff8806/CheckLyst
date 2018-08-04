@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Provider } from 'unstated'
 
 import HomeScreen from '../screens/HomeScreen'
 import CheckLystsScreen from '../screens/CheckLystsScreen'
 import ItemsContainer from '../state/ItemsContainer'
+import LystDetailScreen from '../screens/LystDetailScreen'
+
+const LystStack = createStackNavigator({
+  Saved: CheckLystsScreen,
+  LystDetail: LystDetailScreen,
+})
 
 const TabScreens = createBottomTabNavigator(
   {
     Home: HomeScreen,
-    Saved: CheckLystsScreen,
+    Saved: LystStack,
   },
   {
     navigationOptions: ({ navigation }) => ({

@@ -10,30 +10,30 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.56.0",
-    "react-native-collapsible": "^0.12.0",
-    "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^2.6.2",
+    "react-native-sortable-listview": "^0.2.8",
+    "react-native-vector-icons": "^5.0.0",
+    "react-navigation": "^2.9.3",
     "unstated": "^2.1.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/react": "^16.4.6",
-    "@types/react-native": "^0.56.0",
+    "@types/react": "^16.4.7",
+    "@types/react-native": "^0.56.4",
     "@types/react-native-vector-icons": "^4.6.1",
-    "@types/react-navigation": "^2.0.10",
+    "@types/react-navigation": "^2.0.12",
     "@types/uuid": "^3.4.3",
-    "babel-jest": "23.4.0",
+    "babel-jest": "23.4.2",
     "babel-preset-react-native": "^5",
-    "jest": "23.4.0",
-    "prettier": "^1.13.7",
+    "jest": "23.4.2",
+    "prettier": "^1.14.0",
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.4.1",
     "reactotron-react-native": "^2.0.0",
-    "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.13.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
     "tslint-config-standard": "^7.1.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.1"
   },
   "jest": {
     "preset": "react-native"

@@ -10,6 +10,7 @@ interface InterfaceButton {
   disabled?: boolean
   isSubmit?: boolean
   onPress(): void
+  onLongPress?(): void
 }
 
 export default function Button({
@@ -17,12 +18,14 @@ export default function Button({
   disabled = false,
   isSubmit = false,
   onPress,
+  onLongPress,
 }: InterfaceButton) {
   return (
     <TouchableOpacity
       disabled={disabled}
       style={[styles.button, { backgroundColor: isSubmit ? 'limegreen' : 'dodgerblue' }]}
       onPress={onPress}
+      onLongPress={onLongPress}
     >
       <Text style={styles.text}>{children.toUpperCase()}</Text>
     </TouchableOpacity>
