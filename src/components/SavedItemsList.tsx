@@ -13,6 +13,7 @@ interface ISortHandlers {
 interface IProps {
   checkLysts: ICheckLyst[]
   navigation: { navigate(): void }
+  reorder(from: number, to: number, checkLyst: ICheckLyst): void
 }
 
 interface IRowProps {
@@ -33,10 +34,11 @@ function Row({ checkLyst, navigation, sortHandlers }: IRowProps) {
   )
 }
 
-export default function SavedItemsList({ checkLysts, navigation }: IProps) {
+export default function SavedItemsList({ checkLysts, navigation, reorder }: IProps) {
   return checkLysts && checkLysts.length ? (
     <SortableListView
       data={checkLysts}
+      onRowMoved={({ from, to, row }) => reorder({ from, to, checkLyst: row.data })}
       renderRow={(row: ICheckLyst) => <Row checkLyst={row} navigation={navigation} />}
     />
   ) : null

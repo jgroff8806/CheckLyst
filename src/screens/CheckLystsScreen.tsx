@@ -16,6 +16,7 @@ export default class CheckLysts extends Component {
             <SavedItemsList
               checkLysts={items.state.savedCheckLysts}
               navigation={this.props.navigation}
+              reorder={items.reorder}
             />
           </SafeAreaView>
         )}

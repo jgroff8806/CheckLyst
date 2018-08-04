@@ -1,12 +1,18 @@
 import { Container } from 'unstated'
 import { IItem, ICheckLyst } from '../types/items'
 
-interface InterfaceState {
+interface IState {
   savedCheckLysts: ICheckLyst[]
 }
 
-export default class ItemsContainer extends Container<InterfaceState> {
-  public state: InterfaceState = { savedCheckLysts: [] }
+interface IOrder {
+  from: number
+  to: number
+  checkLyst: ICheckLyst
+}
+
+export default class ItemsContainer extends Container<IState> {
+  public state: IState = { savedCheckLysts: [] }
 
   public create = (newCheckLyst: ICheckLyst) => {
     this.setState(prevState => ({
@@ -37,6 +43,17 @@ export default class ItemsContainer extends Container<InterfaceState> {
           ...checkLyst,
         }
       }),
+    }))
+  }
+
+  public reorder = ({ from, to, checkLyst }: IOrder) => {
+    const remainingCheckLysts = this.state.savedCheckLysts.filter((lyst, index) => index !== from)
+    this.setState(prevState => ({
+      savedCheckLysts: [
+        ...remainingCheckLysts.slice(0, to),
+        checkLyst,
+        ...remainingCheckLysts.slice(to),
+      ],
     }))
   }
 }

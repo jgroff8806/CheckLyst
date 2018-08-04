@@ -74,14 +74,24 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
     }))
   }
 
-  private handleSavePress = () => {
+  private handleSavePress = async () => {
     const newCheckLyst = {
       id: randomUuid(),
       name: this.state.newLyst.name,
       items: this.state.listItems,
     }
 
-    this.props.create(newCheckLyst)
+    await this.props.create(newCheckLyst)
+
+    this.setState(() => ({
+      inputValue: '',
+      inputNameValue: '',
+      nameHidden: false,
+      listItems: [],
+      newLyst: null,
+    }))
+
+    this.inputNewName.current.focus()
   }
 
   private handleChange = (inputValue: string) => {
@@ -131,7 +141,7 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
         </View>
         <View style={styles.itemsWrapper}>
           <Text style={{ fontSize: 24, textAlign: 'center' }}>
-            {this.state.newLyst && this.state.newLyst.name ? this.state.newLyst.name : 'No Lysts'}
+            {this.state.newLyst && this.state.newLyst.name ? this.state.newLyst.name : ''}
           </Text>
           <ItemsList
             handlePress={this.handleItemPress}
@@ -172,10 +182,6 @@ const styles: InterfaceStyles = {
   },
   itemsWrapper: {
     flex: 3,
-    borderTopWidth: 1,
-    borderTopColor: 'dodgerblue',
-    borderBottomWidth: 1,
-    borderBottomColor: 'dodgerblue',
     padding: 20,
   },
 }

@@ -15,4 +15,5 @@ export interface IContainerItems {
   create(i: ICheckLyst): void
   delete(i: ICheckLyst): void
   edit(i: ICheckLyst): void
+  reorder(i: ICheckLyst): void
 }
