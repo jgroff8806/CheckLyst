@@ -3,7 +3,8 @@
  */
 
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Button } from 'react-native-elements'
 
 interface InterfaceButton {
   children: string
@@ -13,7 +14,7 @@ interface InterfaceButton {
   onLongPress?(): void
 }
 
-export default function Button({
+export default function CLButton({
   children,
   disabled = false,
   isSubmit = false,
@@ -21,14 +22,20 @@ export default function Button({
   onLongPress,
 }: InterfaceButton) {
   return (
-    <TouchableOpacity
+    <Button
       disabled={disabled}
-      style={[styles.button, { backgroundColor: isSubmit ? 'limegreen' : 'dodgerblue' }]}
+      buttonStyle={{
+        backgroundColor: isSubmit ? 'limegreen' : 'dodgerblue',
+      }}
+      icon={{
+        name: isSubmit ? 'send' : 'add',
+        size: 28,
+        color: 'white',
+      }}
       onPress={onPress}
       onLongPress={onLongPress}
-    >
-      <Text style={styles.text}>{children.toUpperCase()}</Text>
-    </TouchableOpacity>
+      title={children.toUpperCase()}
+    />
   )
 }
 
